@@ -16,7 +16,9 @@ const validateBanorte3DSecure = async (object) => {
 };
 
 const getDefaultBrowser = async () => {
-  const browser = await puppeteer.launch(); // if we need them.);
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  }); // if we need them.);
 
   const context = browser.defaultBrowserContext();
   return browser;

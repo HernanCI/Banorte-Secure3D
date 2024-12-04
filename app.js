@@ -1,7 +1,7 @@
 const validate = require("./puppeteer");
 const express = require("express");
 const app = express();
-
+const port = 4000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,8 +17,8 @@ app.post("/api/validateCredentials", async (req, res) => {
 });
 
 app
-  .listen("8080", () => {
-    console.log("Server is listening on port: ", 8080);
+  .listen(port, () => {
+    console.log("Server is listening on port: ", port);
   })
   .on("error", (err) => {
     console.log("Error: " + err);
