@@ -6,6 +6,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/helloWorld", (req, res) => res.send("Hello world"));
+
 app.post("/api/validateCredentials", (req, res) => {
   validate.validateBanorte3DSecure(req);
   res.send("Credentials validated");

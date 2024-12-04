@@ -34,3 +34,36 @@ The Banorte 3D Secure endpoint requires JavaScript to run, so we use Puppeteer t
    npm start
    ```
 2. Access the validation endpoint through your browser or API client.
+   /\*\*
+
+## Principal endpoint
+
+Validates the provided credit card credentials.
+Principal endpoint: `/api/validateCredentials`
+The request must be a POST request to `localhost:8080/api/validateCredentials` with the following JSON body:
+
+```json
+{
+  "NUMERO_TARJETA": "Card number",
+  "FECHA_EXP": "Expiration date (MM/YY)",
+  "MONTO": "Transaction amount",
+  "MARCA_TARJETA": "Card brand (e.g., VISA, MasterCard)",
+  "ID_AFILIACION": "Merchant affiliation ID",
+  "NOMBRE_COMERCIO": "Merchant name",
+  "CIUDAD_COMERCIO": "Merchant city",
+  "URL_RESPUESTA": "Response URL",
+  "CERTIFICACION_3D": "3D Secure certification code",
+  "REFERENCIA3D": "3D Secure reference",
+  "CIUDAD": "Cardholder city",
+  "PAIS": "Cardholder country",
+  "CORREO": "Cardholder email",
+  "NOMBRE": "Cardholder first name",
+  "APELLIDO": "Cardholder last name",
+  "CODIGO_POSTAL": "Cardholder postal code",
+  "ESTADO": "Cardholder state",
+  "CALLE": "Cardholder street address",
+  "VERSION_3D": "3D Secure version",
+  "NUMERO_CELULAR": "Cardholder mobile number",
+  "TIPO_TARJETA": "Card type (e.g., DB for debit)"
+}
+```
