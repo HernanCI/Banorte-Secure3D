@@ -1,18 +1,62 @@
 const puppeteer = require("puppeteer");
 const validateBanorte3DSecure = async (object) => {
   //console.log("body:", object.body);
+  var body = object.body;
   try {
     const browser = await getDefaultBrowser(false);
     const page = await getDefaultPage(browser);
-
-    const response = await validateCard(page, object.body);
+    body = validateBody(body);
+    console.log("body: ", body);
+    const response = await validateCard(page, body);
 
     await browser.close();
     return response;
   } catch (error) {
+    await browser.close();
     console.log("Error: ", error);
     return false;
   }
+};
+
+const validateBody = (body) => {
+  const requiredParams = [
+    "NUMERO_TARJETA",
+    "FECHA_EXP",
+    "MONTO",
+    "MARCA_TARJETA",
+    "ID_AFILIACION",
+    "NOMBRE_COMERCIO",
+    "CIUDAD_COMERCIO",
+    "URL_RESPUESTA",
+    "CERTIFICACION_3D",
+    "REFERENCIA3D",
+    "CIUDAD",
+    "PAIS",
+    "CORREO",
+    "NOMBRE",
+    "APELLIDO",
+    "CODIGO_POSTAL",
+    "ESTADO",
+    "CALLE",
+    "VERSION_3D",
+    "NUMERO_CELULAR",
+    "TIPO_TARJETA",
+  ];
+
+  // Convert all body keys to uppercase
+  const uppercasedBody = {};
+  for (const key in body) {
+    if (body.hasOwnProperty(key)) {
+      uppercasedBody[key.toUpperCase()] = body[key];
+    }
+  }
+
+  for (const param of requiredParams) {
+    if (!uppercasedBody.hasOwnProperty(param)) {
+      throw new Error(`Missing required parameter: ${param}`);
+    }
+  }
+  return uppercasedBody;
 };
 
 const getDefaultBrowser = async () => {
@@ -31,7 +75,7 @@ const getDefaultPage = async (browser) => {
     height: 800,
     deviceScaleFactor: 1,
   });
-  await page.setDefaultNavigationTimeout(40000);
+  await page.setDefaultNavigationTimeout(20000);
   return page;
 };
 
